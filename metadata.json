@@ -1,0 +1,6 @@
+{
+  "name": "Copy of منصة امتحانات هندسة المعلوماتية الموحدة",
+  "description": "A comprehensive platform for managing and taking informational engineering exams, with standard and AI-generated question capabilities. The application supports both students and administrators, offering features like exam setup, AI-powered question generation, exam sessions with timers, and results review. It is styled using Tailwind CSS and built with React and TypeScript.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

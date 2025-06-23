@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة امتحان الهندسة المعلوماتية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: { // Existing primary color from app
+                DEFAULT: '#0062E6', 
+                dark: '#004AB6',
+              },
+              // Colors from new design are directly used, e.g. bg-blue-600, bg-blue-800
+            },
+            fontFamily: {
+              sans: ['Tajawal', 'sans-serif'], // Arabic font
+            },
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Tajawal', sans-serif;
+        direction: rtl; /* Ensure direction is set */
+      }
+      html {
+        overflow-y: scroll; 
+      }
+      .prose { 
+        max-width: 65ch;
+      }
+      .prose code::before, .prose code::after {
+        content: ""; 
+      }
+      .rtl-support { /* From new design */
+          direction: rtl;
+          text-align: right;
+      }
+      .question-card { /* From new design */
+          transition: all 0.3s ease;
+      }
+      .question-card:hover { /* From new design */
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      }
+      .tab-content { /* Will be controlled by React, but keep basic style */
+          display: none;
+      }
+      .tab-content.active { /* Will be controlled by React, but keep basic style */
+          display: block;
+          animation: fadeIn 0.5s;
+      }
+      @keyframes fadeIn { /* From new design */
+          from { opacity: 0; }
+          to { opacity: 1; }
+      }
+      .sidebar { /* From new design */
+          transition: all 0.3s ease;
+      }
+      @media (max-width: 768px) { /* From new design */
+          .sidebar {
+              position: fixed;
+              right: -100%; /* Adjusted for RTL */
+              left: auto;
+              top: 0;
+              z-index: 50;
+              height: 100vh;
+          }
+          .sidebar.active {
+              right: 0; /* Adjusted for RTL */
+              left: auto;
+          }
+      }
+      .ai-generated { /* From new design */
+          position: relative;
+      }
+      .ai-generated::after { /* From new design */
+          content: "AI";
+          position: absolute;
+          top: -8px;
+          right: -8px; /* Adjusted for RTL */
+          left: auto;
+          background-color: #3B82F6; /* Tailwind blue-500 */
+          color: white;
+          font-size: 10px;
+          padding: 2px 6px;
+          border-radius: 9999px;
+          font-weight: bold;
+      }
+      /* Ensure scrollbar respects RTL layout and prevent layout shifts */
+      html {
+        scrollbar-gutter: stable;
+      }
+      /* Additional global styles for better integration */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+      }
+      .modal-content {
+        background-color: white;
+        border-radius: 0.5rem; /* rounded-lg */
+        box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); /* shadow-xl */
+        width: 100%;
+        max-height: 90vh; /* max-h-screen with some margin */
+        overflow-y: auto;
+      }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@19.1.0/",
+    "react/": "https://esm.sh/react@19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@1.6.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@7.6.2",
+    "pdfjs-dist": "https://esm.sh/pdfjs-dist@4.5.136/build/pdf.min.mjs",
+    "pdfjs-dist/build/pdf.worker.min.mjs": "https://esm.sh/pdfjs-dist@4.5.136/build/pdf.worker.min.mjs"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-gray-50 rtl-support">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+    <script>
+        // Mobile menu toggle - kept for direct sidebar manipulation outside React root if necessary
+        // Consider moving this to React if sidebar becomes a fully controlled React component.
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeSidebarBtn = document.getElementById('closeSidebarBtn'); // Assuming this ID will be in React-generated sidebar
+        const sidebar = document.getElementById('sidebar'); // Assuming this ID will be on React-generated sidebar
+
+        if (mobileMenuBtn && sidebar) {
+            mobileMenuBtn.addEventListener('click', function() {
+                sidebar.classList.add('active');
+            });
+        }
+        
+        // This button might be part of the React component, so event listener might need to be attached differently if so.
+        // For now, assume it can be found.
+        if (closeSidebarBtn && sidebar) {
+             closeSidebarBtn.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+            });
+        }
+    </script>
+</body>
+</html>
